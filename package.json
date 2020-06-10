@@ -1,16 +1,16 @@
 {
   "name": "playout-bee",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Hyperdeck OMX-Player",
   "main": "index.js",
   "scripts": {
     "start": "node ."
-    },
-  "author": "",
+  },
+  "author": "Jonas Dautel @ ByteHive",
   "license": "ISC",
   "dependencies": {
-    "hyperdeck-server-connection": "0.0.2",
-    "node-omxplayer": "^0.6.1",
+    "hyperdeck-server-connection": "0.0.4-nightly-feat-gotoCommand-20200604-153336-1ee166e.0",
+    "node-omx": "^0.2.1",
     "tslib": "^2.0.0"
   }
 }
