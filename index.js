@@ -1,5 +1,5 @@
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
-const omx = require('node-omx');
+var omx = require('node-omxplayer');
 const win = null
 const s = new HyperdeckServer()
 const fs = require('fs')
@@ -17,14 +17,16 @@ var preview = 'false';
 var clips = []
 var player = null
 loadCLips();
-
+player = omx(clipFolder + clips[clipID-1].name);
 //This Section Processes the Commands
 s.onPlay = cmd => {
     console.log('playing', cmd);
-    omx.play(clipFolder + clips[clipID-1].name);
+    player.play();
     return Promise.resolve()
 }
-s.onGoTo = cmd =>{clipID = cmd.parameters['clip id'];}
+s.onGoTo = cmd =>{clipID = cmd.parameters['clip id'];
+player = omx(clipFolder + clips[clipID-1].name);
+return Promise.resolve()}
 s.onClipsAdd = cmd => {console.log('CLIP ADD',cmd)};
 s.onClipsClear = cmd => {console.log('CLIP CLEAR',cmd)};
 s.onClipsCount = cmd => {console.log('CLIP COUNT',cmd)
@@ -108,7 +110,7 @@ return Promise.resolve();};
 
 s.onStop = cmd => {
 status = "stopped";
-//player.quit();
+player.quit();
 return Promise.resolve();};
 
 
@@ -123,7 +125,6 @@ let res = {
     'video format': videoFormat,
     'loop' : loop
 };
-console.log("Output TINFO",res)
 return Promise.resolve(res)};
 
 
