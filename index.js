@@ -18,6 +18,7 @@ var clips = []
 var player = null
 loadCLips();
 player = omx(clipFolder + clips[clipID-1].name);
+player.play();
 //This Section Processes the Commands
 s.onPlay = cmd => {
     console.log('playing', cmd);
