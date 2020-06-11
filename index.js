@@ -19,28 +19,31 @@ var player = null
 loadCLips();
 player = omx(clipFolder + clips[clipID-1].name);
 player.play();
-//This Section Processes the Commands
 s.onPlay = cmd => {
     console.log('playing', cmd);
     player.play();
+    status = "playing";
     return Promise.resolve()
 }
-s.onGoTo = cmd =>{clipID = cmd.parameters['clip id'];
-player = omx(clipFolder + clips[clipID-1].name);
+s.onGoTo = cmd =>{
+clipID = cmd.parameters['clip id'];
 return Promise.resolve()}
+
 s.onClipsAdd = cmd => {console.log('CLIP ADD',cmd)};
 s.onClipsClear = cmd => {console.log('CLIP CLEAR',cmd)};
-s.onClipsCount = cmd => {console.log('CLIP COUNT',cmd)
+
+s.onClipsCount = cmd => {
+    console.log('CLIP COUNT',cmd);
 return Promise.resolve({'clip count': clips.length})};
 
 s.onClipsGet = cmd => {
-    console.log('CLIP GET',cmd);
-var result = {}
-let i = 1;
-clips.forEach(clip => {
-result[i] = " " + clip.name +" 0^0:00:00:00 00:24:02:00";
-});
-return Promise.resolve(result)};
+    var result = {}
+    let i = 1;
+    clips.forEach(
+      clip => {result[i] = " " + clip.name +" 00:00:00:00 00:24:02:00";
+      i = i + 1;
+    });
+    return Promise.resolve(result)};
 
 
 s.onConfiguration = cmd => {
@@ -76,7 +79,7 @@ return Promise.resolve();};
 
 s.onJog = cmd => {console.log('JOG',cmd)};
 
-s.onPlayrangeClear = cmd => {console.log('PLAY CELR',cmd)};
+s.onPlayrangeClear = cmd => {console.log('Play Clear',cmd)};
 
 s.onPlayrangeSet = cmd => {console.log('Playrange set',cmd)};
 
@@ -84,12 +87,10 @@ s.onPreview = cmd => {
     preview = 'true'
     return Promise.resolve();
 };
-// not supported yet
 s.onRecord = cmd => {};
 
 
-s.onRemote = cmd => {
-    return Promise.resolve({'enabled':"true",'override':"false"})}; ;
+s.onRemote = cmd => {return Promise.resolve({'enabled':"true",'override':"false"})}; ;
 
 
 s.onShuttle = cmd => {console.log('SHTTL',cmd)};
