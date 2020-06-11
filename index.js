@@ -22,7 +22,7 @@ player.play();
 s.onPlay = cmd => {
     console.log('playing', cmd);
     player = omx(clipFolder + clips[clipID-1].name);
-    player.play();
+    //player.play();
     status = "play";
     return Promise.resolve()
 }
