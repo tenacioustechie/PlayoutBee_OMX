@@ -21,8 +21,9 @@ player = omx(clipFolder + clips[clipID-1].name);
 player.play();
 s.onPlay = cmd => {
     console.log('playing', cmd);
+    player = omx(clipFolder + clips[clipID-1].name);
     player.play();
-    status = "playing";
+    status = "play";
     return Promise.resolve()
 }
 s.onGoTo = cmd =>{
