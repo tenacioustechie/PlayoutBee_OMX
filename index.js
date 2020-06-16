@@ -149,3 +149,8 @@ function loadCLips(){
     })
     console.log("result ",clips);
 }
+process.on('SIGTERM', () => {
+    console.info('SIGTERM signal received.');
+    if(player != null) {
+    player.quit();}
+  });
