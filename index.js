@@ -1,6 +1,7 @@
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
 var ON_DEATH = require('death');
-var omx = require('node-omxplayer');
+var OmxManager = require('omx-manager');
+var manager = new OmxManager(); // OmxManager
 const win = null
 const s = new HyperdeckServer()
 const fs = require('fs')
@@ -18,17 +19,17 @@ var preview = 'false';
 var clips = []
 var player = null
 loadCLips();
-player = omx(clipFolder + clips[clipID-1].name);
-player.play();
+playerPlay(clipFolder + clips[clipID-1].name);
+
 s.onPlay = cmd => {
     console.log('playing', cmd);
-    player = omx(clipFolder + clips[clipID-1].name);
+    playerPlay(clipFolder + clips[clipID-1].name);
     status = "play";
     return Promise.resolve()
 }
 s.onGoTo = cmd =>{
 clipID = cmd.parameters['clip id'];
-return Promise.resolve()}
+return Promise.resolve()};
 
 s.onClipsAdd = cmd => {console.log('CLIP ADD',cmd)};
 s.onClipsClear = cmd => {console.log('CLIP CLEAR',cmd)};
@@ -113,8 +114,9 @@ return Promise.resolve();};
 
 s.onStop = cmd => {
 status = "stopped";
-player.quit();
-return Promise.resolve();};
+playerStop();
+return Promise.resolve();
+};
 
 
 s.onTransportInfo = cmd => {
@@ -133,7 +135,14 @@ return Promise.resolve(res)};
 
 s.onUptime = cmd => {console.log('Recived',cmd)};
 s.onWatchdog = cmd => {console.log('Recived',cmd)};
+//Player fucntions
 
+function playerPlay(clip){
+
+}
+function playerStop(){
+
+}
 
 // OWN FUNCTIONS
 function loadCLips(){
@@ -149,6 +158,5 @@ function loadCLips(){
 ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
     
-    player.quit().then(process.exit());
-  })
+  });
 
