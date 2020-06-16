@@ -1,3 +1,4 @@
+import createVideoPlayer, { AudioOutput, VideoOutput } from 'omxplayer-node';
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
 var ON_DEATH = require('death');
 const win = null
@@ -16,6 +17,10 @@ var displayTimecode = "0:27:00:02";
 var preview = 'false';
 var clips = []
 var player = null
+const videoPlayer = createVideoPlayer({
+    display: VideoOutput.HDMI0,
+    audio: AudioOutput.jack,
+});
 loadCLips();
 playerPlay(clipFolder + clips[clipID-1].name);
 
@@ -128,19 +133,29 @@ let res = {
     'video format': videoFormat,
     'loop' : loop
 };
+updateTC();
 return Promise.resolve(res)};
 
 
 s.onUptime = cmd => {console.log('Recived',cmd)};
 s.onWatchdog = cmd => {console.log('Recived',cmd)};
 //Player fucntions
-
+function updateTC(){
+    console.log(player.info());
+}
 function playerPlay(clip){
-
+    videoPlayer.open({
+        source: clip,
+        audio: AudioOutput.HDMI,
+        osd: true
+    });
 }
 function playerStop(){
-
+    player.pause();
 }
+player.on('close',()=>{
+    status ="stopped";
+})
 
 // OWN FUNCTIONS
 function loadCLips(){
@@ -155,6 +170,6 @@ function loadCLips(){
 }
 ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
-    
+    player.quit();
   });
 
