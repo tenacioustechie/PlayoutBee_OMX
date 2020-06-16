@@ -1,4 +1,4 @@
-import createVideoPlayer, { AudioOutput, VideoOutput } from 'omxplayer-node';
+const createVideoPlayer, { AudioOutput, VideoOutput } = require('omxplayer-node');
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
 var ON_DEATH = require('death');
 const win = null
