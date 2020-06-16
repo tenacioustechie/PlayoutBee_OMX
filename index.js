@@ -150,5 +150,6 @@ ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
     if(player != null) {
     player.quit();}
+    process.exit();
   })
 
