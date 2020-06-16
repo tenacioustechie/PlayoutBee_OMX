@@ -1,4 +1,5 @@
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
+var ON_DEATH = require('death');
 var omx = require('node-omxplayer');
 const win = null
 const s = new HyperdeckServer()
@@ -22,7 +23,6 @@ player.play();
 s.onPlay = cmd => {
     console.log('playing', cmd);
     player = omx(clipFolder + clips[clipID-1].name);
-    //player.play();
     status = "play";
     return Promise.resolve()
 }
@@ -134,9 +134,6 @@ return Promise.resolve(res)};
 s.onUptime = cmd => {console.log('Recived',cmd)};
 s.onWatchdog = cmd => {console.log('Recived',cmd)};
 
-//OMX Events
-
-//omx.on('stop',() =>{status = 'stopped'});
 
 // OWN FUNCTIONS
 function loadCLips(){
@@ -149,8 +146,9 @@ function loadCLips(){
     })
     console.log("result ",clips);
 }
-process.on('SIGTERM', () => {
+ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
     if(player != null) {
     player.quit();}
-  });
+  })
+
