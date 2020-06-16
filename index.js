@@ -149,7 +149,6 @@ function loadCLips(){
 ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
     
-    await player.quit();
-    process.exit();
+    player.quit().then(process.exit());
   })
 
