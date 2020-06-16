@@ -148,8 +148,8 @@ function loadCLips(){
 }
 ON_DEATH(function(signal, err) {
     console.info('SIGTERM signal received.');
-    if(player != null) {
-    player.quit();}
+    
+    await player.quit();
     process.exit();
   })
 
