@@ -1,7 +1,5 @@
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
 var ON_DEATH = require('death');
-var OmxManager = require('omx-manager');
-var manager = new OmxManager(); // OmxManager
 const win = null
 const s = new HyperdeckServer()
 const fs = require('fs')
