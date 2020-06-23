@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node ."
   },
-  "type": "module",
   "author": "Jonas Dautel @ ByteHive",
   "license": "ISC",
   "dependencies": {
