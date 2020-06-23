@@ -19,7 +19,7 @@ var clips = []
 var player = null;
 loadCLips();
 playerPlay(clipFolder + clips[clipID-1].name);
-
+player.pause();
 s.onPlay = cmd => {
     console.log('playing', cmd);
     playerPlay(clipFolder + clips[clipID-1].name);
