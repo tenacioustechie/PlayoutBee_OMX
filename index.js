@@ -1,4 +1,4 @@
-import createVideoPlayer, { AudioOutput, VideoOutput } from 'omxplayer-node';
+var Omx = require('node-omxplayer');
 const  {HyperdeckServer} = require('hyperdeck-server-connection');
 var ON_DEATH = require('death');
 const win = null
@@ -16,11 +16,7 @@ var timecode ="0:27:00:02";
 var displayTimecode = "0:27:00:02";
 var preview = 'false';
 var clips = []
-var player = null
-const videoPlayer = createVideoPlayer({
-    display: VideoOutput.HDMI0,
-    audio: AudioOutput.jack,
-});
+var player = null;
 loadCLips();
 playerPlay(clipFolder + clips[clipID-1].name);
 
@@ -144,14 +140,11 @@ function updateTC(){
     console.log(player.info());
 }
 function playerPlay(clip){
-    videoPlayer.open({
-        source: clip,
-        audio: AudioOutput.HDMI,
-        osd: true
-    });
+    player = Omx(clip);
+ 
 }
 function playerStop(){
-    player.pause();
+    player.quit();
 }
 player.on('close',()=>{
     status ="stopped";
