@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ."
   },
+  "type": "module",
   "author": "Jonas Dautel @ ByteHive",
   "license": "ISC",
   "dependencies": {
@@ -13,6 +14,7 @@
     "hyperdeck-server-connection": "0.0.4-nightly-feat-gotoCommand-20200604-153336-1ee166e.0",
     "node-omxplayer": "^0.6.1",
     "omxplayer-node": "^0.7.6",
+    "sd-omx-manager": "^1.0.1",
     "tslib": "^2.0.0"
   }
 }
