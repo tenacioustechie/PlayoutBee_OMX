@@ -18,13 +18,14 @@ var preview = 'false';
 var clips = []
 var player = null;
 loadCLips();
+
 playerPlay(clipFolder + clips[clipID-1].name);
 player.pause();
 s.onPlay = cmd => {
     console.log('playing', cmd);
     playerPlay(clipFolder + clips[clipID-1].name);
     status = "play";
-    return Promise.resolve()
+    return Promise.resolve();
 }
 s.onGoTo = cmd =>{
 clipID = cmd.parameters['clip id'];
@@ -97,14 +98,17 @@ s.onRemote = cmd => {return Promise.resolve({'enabled':"true",'override':"false"
 s.onShuttle = cmd => {console.log('SHTTL',cmd)};
 
 
-s.onSlotInfo = cmd => {console.log('INFO',cmd)
+s.onSlotInfo = cmd => {
+console.log('INFO',cmd);
+
 return Promise.resolve({
 'slot id': 1,
 'status': "mounted",
 'volume name': "Playout Bee",
 'recording time': 0,
 'video format': videoFormat
-})};
+});
+};
 
 s.onSlotSelect = cmd => {
 console.log('Slotselct',cmd);
@@ -146,9 +150,7 @@ function playerPlay(clip){
 function playerStop(){
     player.quit();
 }
-player.on('close',()=>{
-    status ="stopped";
-})
+
 
 // OWN FUNCTIONS
 function loadCLips(){
